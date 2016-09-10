@@ -1,0 +1,22 @@
+CREATE TABLE ADC_RANKINGS (
+  rank integer,
+  champion varchar(30),
+  win_rate numeric(4,2),
+  play_rate numeric(4,2),
+  ban_rate numeric(4,2),
+  player_avg_games numeric(6,2),
+  kills numeric(5,2),
+  deaths numeric(5,2),
+  assists numeric(5,2),
+  killing_spree numeric(5,2),
+  damage_dealt bigint,
+  damage_taken bigint,
+  total_healing int,
+  minions_killed numeric(6,2),
+  enemy_jungle_cs numeric(6,2),
+  ally_jungle_cs numeric(6,2),
+  gold_earned bigint,
+  role_position smallint,
+  position_change smallint,
+  snapshot_time timestamp
+);
