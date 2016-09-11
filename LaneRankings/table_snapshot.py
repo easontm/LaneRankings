@@ -3,6 +3,7 @@ import requests
 import psycopg2
 from datetime import datetime
 from sys import argv
+import ConfigParser
 
 lane = argv[1]
 options = ['top', 'jungle', 'middle', 'adc', 'support']
@@ -11,6 +12,10 @@ if lane not in options:
 	print "You input: " + lane
 	exit()
 print "Updating table for " + lane + " lane."
+
+config = ConfigParser.ConfigParser()
+config.read("/etc/postgresql/.config")
+pwd = config.get("configuration", "password")
 
 
 #limit max is 50
@@ -22,7 +27,7 @@ res = requests.get('http://api.champion.gg/stats/role/' + lane + '/mostWinning?a
 res2 = requests.get('http://api.champion.gg/stats/role/' + lane + '/mostWinning?api_key=b4b7513eb8b46d900cad595eb20327c3&page=2&limit=50')
 
 try:
-	conn = psycopg2.connect("dbname='ranking_snapshots' user='tyler' host='localhost' password='logmein'")
+	conn = psycopg2.connect("dbname='ranking_snapshots' user='tyler' host='localhost' password='" + pwd + "'")	
 	cursor = conn.cursor()
 except:
 	print "Unable to connect to ranking_snapshots"
