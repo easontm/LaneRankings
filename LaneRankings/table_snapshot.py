@@ -11,7 +11,7 @@ if lane not in options:
 	print "Valid options are 'top', 'jungle', 'middle', 'adc', and 'support'"
 	print "You input: " + lane
 	exit()
-print "Updating table for " + lane + " lane."
+print "Updating table for " + lane + " position."
 
 config = ConfigParser.ConfigParser()
 config.read("/etc/postgresql/.config")
@@ -80,6 +80,9 @@ general_list_postgres = ['win_rate',
 			'position_change']
 
 
+cursor.execute("SELECT COUNT(*) FROM " + lane + "_rankings;")
+for record in cursor:
+	print str(record) + " records at the start"
 #for i in range(0, 1):
 for data in pages:
 #for i in range(0, list1_length):
@@ -132,5 +135,9 @@ for data in pages:
 				datetime.now().isoformat())
 		#print SQL
 		#print data_string
+		#print champion
 		cursor.execute(SQL, data_string)
 		conn.commit()
+		cursor.execute("SELECT COUNT(*) FROM " + lane + "_rankings;")
+		for record in cursor:
+			print str(record) + " records"
